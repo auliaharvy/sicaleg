@@ -12,6 +12,10 @@ import customer from './stores/customer.js'
 import transaction from './stores/transaction.js'
 import dashboard from './stores/dashboard.js'
 
+import kecamatan from './stores/kecamatan.js'
+import desa from './stores/desa.js'
+import konstituen from './stores/konstituen.js'
+
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -25,7 +29,10 @@ const store = new Vuex.Store({
         notification,
         customer,
         transaction,
-        dashboard
+        dashboard,
+        kecamatan,
+        desa,
+        konstituen,
     },
     state: {
         token: localStorage.getItem('token'),

@@ -3,7 +3,7 @@
         <nav class="navbar navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <router-link to="/" class="navbar-brand"><b>DW</b>Laundry</router-link>
+                    <router-link to="/" class="navbar-brand"><b>Si</b>Caleg</router-link>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                         <i class="fa fa-bars"></i>
                     </button>
@@ -12,18 +12,21 @@
                 <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><router-link to="/">Home <span class="sr-only">(current)</span></router-link></li>
-                        <li v-if="$can('read outlets')"><router-link :to="{ name: 'outlets.data' }">Outlets</router-link></li>
-                        <li v-if="$can('read couriers')"><router-link :to="{ name: 'couriers.data' }">Couriers</router-link></li>
-                        <li v-if="$can('read products')"><router-link :to="{ name: 'products.data' }">Products</router-link></li>
-                        <li><router-link :to="{ name: 'customers.data' }">Customer</router-link></li>
-                        <li><router-link :to="{ name: 'expenses.data' }">Expenses</router-link></li>
                         <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Transactions <span class="caret"></span></a>
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Konstituen <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><router-link :to="{ name: 'transactions.list' }">List</router-link></li>
-                                <li><router-link :to="{ name: 'transactions.add' }">Add New</router-link></li>
+                                <li><router-link :to="{ name: 'konstituens.data' }">List</router-link></li>
+                                <li><router-link :to="{ name: 'konstituens.add' }">Add New</router-link></li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Master Data <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><router-link :to="{ name: 'kecamatans.data' }">Kecamatan</router-link></li>
+                                <li><router-link :to="{ name: 'desas.data' }">Desa</router-link></li>
+                            </ul>
+                        </li>
+                        <li v-if="$can('read products')"><router-link :to="{ name: 'products.data' }">Products</router-link></li>
                         <li class="dropdown" v-if="authenticated.role == 0">
                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Settings <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">

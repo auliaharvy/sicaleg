@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel">
-                        <div class="panel-heading">
+                        <!-- <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
@@ -47,9 +47,12 @@
                                     <button class="btn btn-primary btn-sm pull-right" @click="exportData">Export</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="panel-body">
+                        </div> -->
+                        <!-- <div class="panel-body">
                             <line-chart v-if="transactions.length > 0" :data="transaction_data" :options="chartOptions" :labels="labels"/>
+                        </div> -->
+                        <div class="panel-body">
+                            <bar-chart v-if="desas.length > 0" :dataTarget="dataTargetDesa" :dataActual="dataActualDesa" :options="chartOptions" :labels="labelsdesa"/>
                         </div>
                     </div>
                 </div>
@@ -61,13 +64,15 @@
     import moment from 'moment'
     import _ from 'lodash'
     import LineChart from '../components/LineChart.vue'
+    import BarChart from '../components/BarChart.vue'
     import { mapActions, mapState } from 'vuex'
     export default {
         created() {
             this.getChartData({
                 month: this.month,
                 year: this.year
-            })
+            }),
+            this.getChartDataDesa()
         },
         data() {
             return {
@@ -95,7 +100,8 @@
         },
         computed: {
             ...mapState('dashboard', {
-                transactions: state => state.transactions
+                transactions: state => state.transactions,
+                desas: state => state.desas,
             }),
             ...mapState(['token']),
             years() {
@@ -106,6 +112,21 @@
                     return moment(o.date).format('DD')
                 });
             },
+            labelsdesa() {
+                return _.map(this.desas, function(o) {
+                    return o.nama
+                });
+            },
+            dataTargetDesa() {
+                return _.map(this.desas, function(o) {
+                    return o.pemilih_pria + o.pemilih_wanita
+                });
+            },
+            dataActualDesa() {
+                return _.map(this.desas, function(o) {
+                    return o.jumlah_konstituen
+                });
+            },
             transaction_data() {
                 return _.map(this.transactions, function(o) {
                     return o.total
@@ -113,11 +134,14 @@
             }
         },
         methods: {
-            ...mapActions('dashboard', ['getChartData']),
+            ...mapActions('dashboard', ['getChartData', 'getChartDataDesa']),
             exportData() {
                 window.open(`/api/export?api_token=${this.token}&month=${this.month}&year=${this.year}`)
             }
         },
-        components: { 'line-chart': LineChart },
+        components: { 
+            'line-chart': LineChart,
+            'bar-chart': BarChart,
+        },
     }
 </script>

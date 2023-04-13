@@ -17,8 +17,12 @@ Route::post('/login', 'Auth\LoginController@login');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('chart', 'API\DashboardController@chart');
+    Route::get('chart-desa', 'API\DashboardController@chartDesa');
     Route::get('export', 'API\DashboardController@exportData');
     Route::resource('/outlets', 'API\OutletController')->except(['show']);
+    Route::resource('/kecamatans', 'API\MstKecamatanController')->except(['show']);
+    Route::resource('/desas', 'API\MstDesaController')->except(['show']);
+    Route::resource('/konstituens', 'API\TrxKonstituenController')->except(['show']);
     
     Route::resource('/couriers', 'API\UserController')->except(['create', 'show', 'update']);
     Route::post('/couriers/{id}', 'API\UserController@update')->name('couriers.update');

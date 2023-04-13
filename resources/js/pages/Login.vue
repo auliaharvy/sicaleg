@@ -2,10 +2,10 @@
     <div class="container">
         <div class="login-box">
             <div class="login-logo">
-                <router-link :to="{ name: 'home' }"><b>DW</b>Laundry</router-link>
+                <router-link :to="{ name: 'home' }"><b>Si</b>Caleg</router-link>
             </div>
             <div class="login-box-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">silakan login</p>
 
                 <div class="form-group has-feedback" :class="{'has-error': errors.email}">
                     <input type="email" class="form-control" placeholder="Email" v-model="data.email">

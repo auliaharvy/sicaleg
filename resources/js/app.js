@@ -4,7 +4,7 @@ import store from './store.js'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueSweetalert2 from 'vue-sweetalert2'
-import Permissions from './mixins/Permission.js'
+import Permissions from './mixins/permission.js'
 
 Vue.use(VueSweetalert2)
 Vue.use(BootstrapVue)
@@ -33,6 +33,13 @@ new Vue({
         ...mapActions('user', ['getUserLogin']),
         ...mapActions('notification', ['getNotifications']),
         ...mapActions('expenses', ['getExpenses']),
+        pencapaian(target, actual) {
+            return ((actual / (target)) * (100/100)).toFixed(2);
+        },
+        formatPrice(value) {
+            let val = (value/1).toFixed(0).replace('.', ',')
+            return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        },
         initialLister() {
             if (this.isAuth) {
                 window.Echo = new Echo({

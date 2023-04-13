@@ -4,6 +4,21 @@ import Home from './pages/Home.vue'
 import Login from './pages/Login.vue'
 import store from './store.js'
 
+import IndexKecamatan from './pages/kecamatan/Index.vue'
+import DataKecamatan from './pages/kecamatan/Kecamatan.vue'
+import AddKecamatan from './pages/kecamatan/Add.vue'
+import EditKecamatan from './pages/kecamatan/Edit.vue'
+
+import IndexDesa from './pages/desa/Index.vue'
+import DataDesa from './pages/desa/desa.vue'
+import AddDesa from './pages/desa/Add.vue'
+import EditDesa from './pages/desa/Edit.vue'
+
+import IndexKonstituen from './pages/konstituen/Index.vue'
+import DataKonstituen from './pages/konstituen/konstituen.vue'
+import AddKonstituen from './pages/konstituen/Add.vue'
+import EditKonstituen from './pages/konstituen/Edit.vue'
+
 import IndexOutlet from './pages/outlets/Index.vue'
 import DataOutlet from './pages/outlets/Outlet.vue'
 import AddOutlet from './pages/outlets/Add.vue'
@@ -53,6 +68,81 @@ const router = new Router({
             path: '/login',
             name: 'login',
             component: Login
+        },
+        {
+            path: '/kecamatans',
+            component: IndexKecamatan,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'kecamatans.data',
+                    component: DataKecamatan,
+                    meta: { title: 'Manage Kecamatan' }
+                },
+                {
+                    path: 'add',
+                    name: 'kecamatans.add',
+                    component: AddKecamatan,
+                    meta: { title: 'Add New Kecamatan' }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'kecamatans.edit',
+                    component: EditKecamatan,
+                    meta: { title: 'Edit Kecamatan' }
+                }
+            ]
+        }, 
+        {
+            path: '/desas',
+            component: IndexDesa,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'desas.data',
+                    component: DataDesa,
+                    meta: { title: 'Manage Desa' }
+                },
+                {
+                    path: 'add',
+                    name: 'desas.add',
+                    component: AddDesa,
+                    meta: { title: 'Add New Desa' }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'desas.edit',
+                    component: EditDesa,
+                    meta: { title: 'Edit Desa' }
+                }
+            ]
+        },
+        {
+            path: '/konstituens',
+            component: IndexKonstituen,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'konstituens.data',
+                    component: DataKonstituen,
+                    meta: { title: 'Manage Konstituen' }
+                },
+                {
+                    path: 'add',
+                    name: 'konstituens.add',
+                    component: AddKonstituen,
+                    meta: { title: 'Add New Konstituen' }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'konstituens.edit',
+                    component: EditKonstituen,
+                    meta: { title: 'Edit Konstituen' }
+                }
+            ]
         },
         {
             path: '/outlets',
