@@ -58,14 +58,16 @@ const actions = {
     },
     updateKonstituen({ state }, payload) {
         return new Promise((resolve, reject) => {
-            console.log(payload.data)
             $axios.post(`/konstituens/${state.id}`, payload, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            })
-            .then((response) => {
+            }).then((response) => {
                 resolve(response.data)
+            }).catch((error) => {
+                if (error.response.status == 422) {
+                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+                }
             })
         })
     } ,

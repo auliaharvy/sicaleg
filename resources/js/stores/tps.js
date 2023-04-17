@@ -69,6 +69,10 @@ const actions = {
             $axios.put(`/tps/${payload}`, state.tps).then((response) => {
                 commit('CLEAR_FORM')
                 resolve(response.data)
+            }).catch((error) => {
+                if(error.response.status == 422){
+                    commit('SET_ERRORS', error.response.data.errors, {root: true});
+                }
             })
         })
     },

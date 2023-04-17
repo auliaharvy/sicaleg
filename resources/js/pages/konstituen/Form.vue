@@ -2,8 +2,9 @@
     <div>
         <div class="form-group" :class="{ 'has-error': errors.nik}">
             <label for="">NIK</label>
+            <p v-if="errors.nik">error nik : {{ errors.nik[0] }}</p>
             <input type="text" class="form-control" v-model="konstituen.nik" />
-            <p class="text-danger" v-if="errors.nik">{{ errors.nik[0] }}</p>
+            <!-- <p class="text-danger" v-if="errors.nik">{{ errors.nik[0] }}</p> -->
         </div>
         <div class="form-group" :class="{ 'has-error': errors.nama }">
             <label for="">Nama</label>
@@ -60,7 +61,7 @@
                 <option value="">Pilih</option>
                 <option v-for="(row, index) in allAgama.data" :key="index" :value="row.nama">{{ row.nama}}</option>
             </select>
-            <p class="text-danger" v-if="errors.id_tps">{{ errors.id_tps[0] }}</p>
+            <p class="text-danger" v-if="errors.agama">{{ errors.agama[0] }}</p>
         </div>
         <div class="form-group" :class="{ 'has-error': errors.status_pernikahan}">
             <label for="">Status Pernikahan</label>
@@ -71,7 +72,7 @@
             <p class="text-danger" v-if="errors.status_pernikahan">{{ errors.status_pernikahan[0] }}</p>
         </div>
 
-        <div class="form-group" :class="{ 'has-error': errors.rw}">
+        <div class="form-group" :class="{ 'has-error': errors.pekerjaan}">
             <label for="">Pekerjaan</label>
             <input type="text" class="form-control" v-model="konstituen.pekerjaan" />
             <p class="text-danger" v-if="errors.pekerjaan">{{ errors.pekerjaan[0] }}</p>
@@ -197,14 +198,11 @@ export default {
                     foto: '',
                     updated_by: res1.data.updated_by,
                 }
-
-                console.log(this.nameDesa)
-                console.log(this.kecamatans)
            })
         }
     },
     computed: {
-        ...mapState(["errors"]),
+        ...mapState(['errors']),
         ...mapState("konstituen", {
             konstituens: state => state.konstituens,
         }),
@@ -304,6 +302,7 @@ export default {
                     }
                     this.$router.push({ name: 'konstituens.data' })
                 })
+                console.log(this.errors)
             }
         }
     },
