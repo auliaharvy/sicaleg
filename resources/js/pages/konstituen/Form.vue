@@ -90,7 +90,6 @@
         </div>
         <div v-if="this.$route.name == 'konstituens.edit'" class="form-group" :class="{ 'has-error': errors.updated_by}">
             <label for="">Di updated oleh</label>
-            <p>{{ konstituen.updated_by}}</p>
             <select v-model="konstituen.updated_by" class="form-control">
                 <option value="">Pilih</option>
                 <option v-for="(row, index) in rekruters.data" :key="index" :value="row.id">{{ row.name}}</option>
