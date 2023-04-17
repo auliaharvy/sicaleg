@@ -2,9 +2,8 @@
     <div>
         <div class="form-group" :class="{ 'has-error': errors.nik}">
             <label for="">NIK</label>
-            <p v-if="errors.nik">error nik : {{ errors.nik[0] }}</p>
             <input type="text" class="form-control" v-model="konstituen.nik" />
-            <!-- <p class="text-danger" v-if="errors.nik">{{ errors.nik[0] }}</p> -->
+            <p class="text-danger" v-if="errors.nik">{{ errors.nik[0] }}</p>
         </div>
         <div class="form-group" :class="{ 'has-error': errors.nama }">
             <label for="">Nama</label>
@@ -281,6 +280,7 @@ export default {
             } else if (this.$route.name == 'konstituens.edit') {
                 form.append('updated_by', this.konstituen.updated_by)
                 this.SET_ID_UPDATE(this.$route.params.id)
+                console.log(this.errors)
                 this.updateKonstituen(form).then(() => {
                     this.konstituen = {                        
                         nik: '',
@@ -301,7 +301,6 @@ export default {
                     }
                     this.$router.push({ name: 'konstituens.data' })
                 })
-                console.log(this.errors)
             }
         }
     },

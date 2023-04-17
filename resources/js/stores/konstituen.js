@@ -56,7 +56,7 @@ const actions = {
             })
         })
     },
-    updateKonstituen({ state }, payload) {
+    updateKonstituen({ state, commit }, payload) {
         return new Promise((resolve, reject) => {
             $axios.post(`/konstituens/${state.id}`, payload, {
                 headers: {
@@ -66,6 +66,7 @@ const actions = {
                 resolve(response.data)
             }).catch((error) => {
                 if (error.response.status == 422) {
+                    console.log(error.response.data.errors)
                     commit('SET_ERRORS', error.response.data.errors, { root: true })
                 }
             })
