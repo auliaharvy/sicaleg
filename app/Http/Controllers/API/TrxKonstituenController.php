@@ -10,6 +10,7 @@ use App\TrxKonstituen;
 use App\MstKecamatan;
 use App\MstDesa;
 use App\MstTps;
+use File;
 use DB;
 
 class TrxKonstituenController extends Controller
@@ -165,6 +166,7 @@ class TrxKonstituenController extends Controller
     public function destroy($id)
     {
         $konstituen = TrxKonstituen::find($id);
+        File::delete(storage_path('app/public/konstituen/' . $konstituen->foto));
         $konstituen->delete();
         return response()->json(['status' => 'success'], 200);
     }
