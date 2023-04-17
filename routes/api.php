@@ -22,10 +22,15 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::resource('/outlets', 'API\OutletController')->except(['show']);
     Route::resource('/kecamatans', 'API\MstKecamatanController')->except(['show']);
     Route::resource('/desas', 'API\MstDesaController')->except(['show']);
-    Route::resource('/konstituens', 'API\TrxKonstituenController')->except(['show']);
+    Route::get('/name-desa', 'API\MstDesaController@getNameDesa');
+    Route::resource('/konstituens', 'API\TrxKonstituenController')->except(['show', 'show', 'update']);
+    Route::post('/konstituens/{id}', 'API\TrxKonstituenController@update')->name('konstituen.update');
+    // Route::resource('/tps', 'API\MstTpsController')->except(['show']);
+    Route::resource('tps', 'API\MstTpsController')->except(['create', 'show']);
     
     Route::resource('/couriers', 'API\UserController')->except(['create', 'show', 'update']);
     Route::post('/couriers/{id}', 'API\UserController@update')->name('couriers.update');
+    Route::get('/rekruter', 'API\UserController@rekruter');
 
     Route::resource('product', 'API\ProductController')->except(['create', 'show']);
     Route::get('/product/laundry-type', 'API\ProductController@getLaundryType');

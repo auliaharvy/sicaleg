@@ -2,13 +2,13 @@
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit konstituen</h3>
+                <h3 class="panel-title">Edit Konstituen</h3>
             </div>
             <div class="panel-body">
-                <konstituen-form></konstituen-form>
+                <konstituen-form ref="formKonstituen"></konstituen-form>
                 <div class="form-group">
                     <button class="btn btn-primary btn-sm btn-flat" @click.prevent="submit">
-                        <i class="fa fa-save"></i> Update
+                        <i class="fa fa-save"></i> Update 
                     </button>
                 </div>
             </div>
@@ -16,23 +16,16 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapState } from 'vuex'
-    import Formkonstituen from './Form.vue'
+    import FormKonstituen from './Form.vue'
     export default {
-        name: 'Editkonstituen',
-        created() {
-            this.editkonstituen(this.$route.params.id)
-        },
+        name: 'EditKonstituen',
         methods: {
-            ...mapActions('konstituen', ['editkonstituen', 'updatekonstituen']),
             submit() {
-                this.updatekonstituen(this.$route.params.id).then(() => {
-                    this.$router.push({ name: 'konstituens.data' })
-                })
+                this.$refs.formKonstituen.submit()
             }
         },
         components: {
-            'konstituen-form': Formkonstituen
-        },
+            'konstituen-form': FormKonstituen
+        }
     }
 </script>

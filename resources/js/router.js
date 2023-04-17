@@ -53,6 +53,11 @@ import AddTransaction from './pages/transaction/Add.vue'
 import ViewTransaction from './pages/transaction/View.vue'
 import ListTransaction from './pages/transaction/List.vue'
 
+import IndexTps from './pages/tps/Index.vue'
+import DataTps from './pages/tps/Tps.vue'
+import AddTps from './pages/tps/Add.vue'
+import EditTps from './pages/tps/Edit.vue'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -312,7 +317,32 @@ const router = new Router({
                     meta: { title: 'List Transaction' }
                 },
             ]
-        }
+        },
+        {
+            path: '/tps',
+            component: IndexTps,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'tps.data',
+                    component: DataTps,
+                    meta: { title: 'Manage Tps' }
+                },
+                {
+                    path: 'add',
+                    name: 'tps.add',
+                    component: AddTps,
+                    meta: { title: 'Add New Tps' }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'tps.edit',
+                    component: EditTps,
+                    meta: { title: 'Edit Tps' }
+                },
+            ]
+        },
     ]
 });
 

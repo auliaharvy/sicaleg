@@ -17,4 +17,9 @@ class TrxKonstituen extends Model
     {
         return $this->belongsTo(MstDesa::class);
     }
+    
+    public function tps()
+    {
+        return $this->belongsTo(MstTps::class);
+    }
 }

@@ -28,6 +28,17 @@ class UserController extends Controller
         return new UserCollection($user);
     }
 
+    public function rekruter(){
+        $rekruter = User::all();
+        
+        if($rekruter == null){
+            return response()->json(['status' => 'error not found']);
+        }
+
+        // return response()->json(['status' => 'success', 'data' => $rekruter]);
+        return new UserCollection($rekruter);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

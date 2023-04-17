@@ -15,9 +15,9 @@ class MstKecamatanController extends Controller
         // $kecamatans = MstKecamatan::orderBy('created_at', 'DESC');
         $kecamatans = DB::table('mst_kecamatans as a')
             ->leftJoin('mst_desas as b', 'a.id', '=', 'b.id_kecamatan')
-            ->leftJoin('trx_konstituen as c', 'b.id', '=', 'c.id_desa')
+            ->leftJoin('trx_konstituens as c', 'b.id', '=', 'c.id_desa')
             ->select(DB::raw('a.id, a.nama, a.dapil, CAST(sum(b.pemilih_pria) AS INTEGER) as pemilih_pria, CAST(sum(b.pemilih_wanita) AS INTEGER) as pemilih_wanita, 
-            count(c.id) as jumlah_konstituen, sum(b.jumlah_tps) as total_tps'))
+            count(c.id) as jumlah_konstituens, sum(b.jumlah_tps) as total_tps'))
             ->orderBy('a.created_at', 'ASC')
             ->groupBy(DB::raw('a.id'));
         if (request()->q != '') {

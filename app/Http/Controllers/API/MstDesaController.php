@@ -14,9 +14,9 @@ class MstDesaController extends Controller
     {
         $desas = DB::table('mst_desas as a')
             ->leftJoin('mst_kecamatans as b', 'a.id_kecamatan', '=', 'b.id')
-            ->leftJoin('trx_konstituen as c', 'a.id', '=', 'c.id_desa')
+            ->leftJoin('trx_konstituens as c', 'a.id', '=', 'c.id_desa')
             ->select(DB::raw('a.id, a.nama, b.nama as nama_kecamatan,b.dapil, CAST(sum(a.pemilih_pria) AS INTEGER) as pemilih_pria, CAST(sum(a.pemilih_wanita) AS INTEGER) as pemilih_wanita, 
-            count(c.id) as jumlah_konstituen, sum(a.jumlah_tps) as total_tps'))
+            count(c.id) as jumlah_konstituens, sum(a.jumlah_tps) as total_tps'))
             ->orderBy('a.created_at', 'ASC')
             ->groupBy(DB::raw('a.id'));
             // ->select('a.*', 'b.nama as nama_kecamatan')
@@ -26,6 +26,14 @@ class MstDesaController extends Controller
         }
         $desas = $desas->paginate(10);
         return new MstDesaCollection($desas);
+    }
+
+    public function getNameDesa(){
+        // $desa = MstDesa::all();
+        $desa = DB::table('mst_desas')->select(DB::raw('*'))->groupBy(DB::raw('id'));
+
+        // return response()->json(['status' => 'success', 'data' => $desa]);
+        return new MstDesaCollection($desa->paginate(50));
     }
 
     public function store(Request $request)

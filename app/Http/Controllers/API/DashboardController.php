@@ -39,7 +39,7 @@ class DashboardController extends Controller
     {
         $desas = DB::table('mst_desas as a')
         ->leftJoin('mst_kecamatans as b', 'a.id_kecamatan', '=', 'b.id')
-        ->leftJoin('trx_konstituen as c', 'a.id', '=', 'c.id_desa')
+        ->leftJoin('trx_konstituens as c', 'a.id', '=', 'c.id_desa')
         ->select(DB::raw('a.id, a.nama, b.nama as nama_kecamatan,b.dapil, CAST(sum(a.pemilih_pria) AS INTEGER) as pemilih_pria, CAST(sum(a.pemilih_wanita) AS INTEGER) as pemilih_wanita, 
         count(c.id) as jumlah_konstituen, sum(a.jumlah_tps) as total_tps'))
         ->orderBy('a.created_at', 'ASC')

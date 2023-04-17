@@ -26,7 +26,7 @@ export default {
     methods: {
         ...mapMutations('kecamatan', ['CLEAR_FORM']),
     },
-    destroyed() {
+    destroy() {
         this.CLEAR_FORM()
     }
 }

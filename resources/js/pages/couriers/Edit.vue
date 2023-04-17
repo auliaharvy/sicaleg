@@ -16,7 +16,6 @@
     </div>
 </template>
 <script>
-    import { mapActions, mapState } from 'vuex'
     import FormCourier from './Form.vue'
     export default {
         name: 'EditCourier',

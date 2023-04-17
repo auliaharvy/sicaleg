@@ -2,6 +2,7 @@ import $axios from '../api.js'
 
 const state = () => ({
     desas: [],
+    nameDesa: [],
     desa: {
         nama: '',
         id_kecamatan: '',
@@ -16,6 +17,9 @@ const state = () => ({
 const mutations = {
     ASSIGN_DATA(state, payload) {
         state.desas = payload
+    },
+    ASSIGN_NAME_DESA(state, payload) {
+        state.nameDesa = payload
     },
     SET_PAGE(state, payload) {
         state.page = payload
@@ -49,6 +53,14 @@ const actions = {
             $axios.get(`/desas?page=${state.page}&q=${search}`)
             .then((response) => {
                 commit('ASSIGN_DATA', response.data)
+                resolve(response.data)
+            })
+        })
+    },
+    getNameDesa({ commit }){
+        return new Promise((resolve, reject) => {
+            $axios.get('/name-desa').then((response) => {
+                commit('ASSIGN_NAME_DESA', response.data);
                 resolve(response.data)
             })
         })

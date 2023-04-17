@@ -34,7 +34,7 @@ new Vue({
         ...mapActions('notification', ['getNotifications']),
         ...mapActions('expenses', ['getExpenses']),
         pencapaian(target, actual) {
-            return ((actual / (target)) * (100/100)).toFixed(2);
+            return ((actual / (target)) * (100)).toFixed(2);
         },
         formatPrice(value) {
             let val = (value/1).toFixed(0).replace('.', ',')

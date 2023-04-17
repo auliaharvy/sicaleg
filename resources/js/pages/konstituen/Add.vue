@@ -2,10 +2,10 @@
     <div class="col-md-12">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">Add New konstituen</h3>
+                <h3 class="panel-title">Add New Konstituen</h3>
             </div>
             <div class="panel-body">
-                <konstituen-form></konstituen-form>
+                <konstituen-form ref="formKonstituen"></konstituen-form>
                 <div class="form-group">
                     <button class="btn btn-primary btn-sm btn-flat" @click.prevent="submit">
                         <i class="fa fa-save"></i> Add New
@@ -17,24 +17,16 @@
 </template>
 <script>
     import { mapActions, mapState, mapMutations } from 'vuex'
-    import Formkonstituen from './Form.vue'
+    import FormKonstituen from './Form.vue'
     export default {
-        name: 'Addkonstituen',
-        data() {
-            return {
-                
-            }
-        },
+        name: 'AddKonstituen',
         methods: {
-            ...mapActions('konstituen', ['submitkonstituen']),
             submit() {
-                this.submitkonstituen().then(() => {
-                    this.$router.push({ name: 'konstituens.data' })
-                })
+                this.$refs.formKonstituen.submit()
             }
         },
         components: {
-            'konstituen-form': Formkonstituen
+            'konstituen-form': FormKonstituen
         }
     }
 </script>

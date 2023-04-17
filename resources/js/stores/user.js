@@ -2,6 +2,7 @@ import $axios from '../api.js'
 
 const state = () => ({
     users: [],
+    rekruters: [],
     roles: [],
     permissions: [],
     role_permission: [],
@@ -11,6 +12,9 @@ const state = () => ({
 const mutations = {
     ASSIGN_USER(state, payload) {
         state.users = payload
+    },
+    ASSIGN_REKRUTER(state, payload) {
+        state.rekruters = payload
     },
     ASSIGN_ROLES(state, payload) {
         state.roles = payload
@@ -35,6 +39,15 @@ const actions = {
             $axios.get(`/user-lists`)
             .then((response) => {
                 commit('ASSIGN_USER', response.data.data)
+                resolve(response.data)
+            })
+        })
+    },
+    getRekruters({ commit }){
+        return new Promise((resolve, reject) => {
+            $axios.get('/rekruter').then((response) => {
+                console.log(response.data.data)
+                commit('ASSIGN_REKRUTER', response.data)
                 resolve(response.data)
             })
         })

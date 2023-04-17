@@ -16,11 +16,10 @@
                         </p>
                     </template>
                     <template slot="actions" slot-scope="row">
-                        <router-link :to="{ name: 'konstituens.edit', params: {id: row.item.code} }" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></router-link>
+                        <router-link :to="{ name: 'konstituens.edit', params: {id: row.item.id} }" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></router-link>
                         <button class="btn btn-danger btn-sm" @click="deleteData(row.item.id)"><i class="fa fa-trash"></i></button>
                     </template>
                 </b-table>
-
                 <div class="row">
                     <div class="col-md-6">
                         <p v-if="konstituens.data"><i class="fa fa-bars"></i> {{ konstituens.data.length }} item dari {{ konstituens.meta.total }} total data</p>
@@ -48,7 +47,7 @@ import { mapActions, mapState } from 'vuex'
 export default {
     name: 'Datakonstituen',
     created() {
-        this.getkonstituens()
+        this.getKonstituens()
     },
     data() {
         return {
@@ -57,6 +56,7 @@ export default {
                 { key: 'nama_desa', label: 'Desa' },
                 { key: 'nama_kecamatan', label: 'Kecamatan' },
                 { key: 'rekruter', label: 'Timses Perekrut' },
+                { key: 'actions', label: 'Aksi' },
             ],
             search: ''
         }
@@ -76,14 +76,14 @@ export default {
     },
     watch: {
         page() {
-            this.getkonstituens()
+            this.getKonstituen()
         },
         search() {
-            this.getkonstituens(this.search)
+            this.getKonstituen(this.search)
         }
     },
     methods: {
-        ...mapActions('konstituen', ['getkonstituens', 'removekonstituen']),
+        ...mapActions('konstituen', ['getKonstituens', 'removeKonstituen']),
         deleteData(id) {
             this.$swal({
                 title: 'Kamu Yakin?',
@@ -95,7 +95,7 @@ export default {
                 confirmButtonText: 'Iya, Lanjutkan!'
             }).then((result) => {
                 if (result.value) {
-                    this.removekonstituen(id)
+                    this.removeKonstituen(id)
                 }
             })
         }
