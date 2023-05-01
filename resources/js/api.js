@@ -9,7 +9,9 @@ const $axios = axios.create({
     }
 });
 
+// MEMANIPULASI OBJECT REQUEST SEBELUM / SETELAH DI KIRIM KE SERVER
 $axios.interceptors.request.use (
+    // DALAM KONTEKS INI CONFIG MERUJUK SEBAGAI OBJECT REQUEST
     function (config) {
         const token = store.state.token
         if (token) config.headers.Authorization = `Bearer ${token}`;

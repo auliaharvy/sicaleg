@@ -69,10 +69,11 @@ export default {
                     this.$router.push({ name: 'home' })
                 }
             })
-        }
+        },
     },
-    destroyed() {
+    destroyed(){
         this.getUserLogin()
     }
+
 }
 </script>

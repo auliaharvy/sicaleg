@@ -51,6 +51,7 @@ class User extends Authenticatable
         return $query->where('role', 3);
     }
 
+    // MENG ENKRIP DATA PASSWORD SECARA OTOMATIS KETIKA MODEL USER DI CREATE 
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);

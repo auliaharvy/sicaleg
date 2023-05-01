@@ -64,9 +64,9 @@ class UserController extends Controller
                 'role' => $request->role,
                 'photo' => $name,
                 'outlet_id' => $request->outlet_id,
-                'role' => 3
+                'role' => 1 
             ]);
-            $user->assignRole('courier');
+            $user->assignRole('admin');
             DB::commit();
             return response()->json(['status' => 'success'], 200);
         } catch (\Exception $e) {
@@ -123,15 +123,22 @@ class UserController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    // MENGAMBIL USER YANG SUDAH LOGIN DAN MENGAMBIL PERMISSIONNYA
     public function getUserLogin()
     {
+        // MENGAMBIL USER YANG SEDANG LOGIN
         $user = request()->user();
         $permissions = [];
-        foreach (Permission::all() as $permission) {
-            if (request()->user()->can($permission->name)) {
+
+        foreach(Permission::all() as $permission){
+            // JIKA USER YANG SEDANG LOGIN MEMPUNYAI NAMA PERMISSION YANG SAMA DENGAN NAMA PERMISSION DARI TABLE PERMISSIONS
+            // MAKA NAMA PERMISSION TERSEBUT DITAMBAHKAN KE VARIABLE $permissions;
+            if(request()->user()->can($permission->name)){
                 $permissions[] = $permission->name;
             }
         }
+
+        // MEMASUKAN DATA PERMISSIONS KE DALAM DATA USER
         $user['permission'] = $permissions;
         return response()->json(['status' => 'success', 'data' => $user]);
     }

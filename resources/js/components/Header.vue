@@ -12,21 +12,10 @@
                 <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><router-link to="/">Home <span class="sr-only">(current)</span></router-link></li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Konstituen <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><router-link :to="{ name: 'konstituens.data' }">List</router-link></li>
-                                <li><router-link :to="{ name: 'konstituens.add' }">Add New</router-link></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Master Data <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><router-link :to="{ name: 'kecamatans.data' }">Kecamatan</router-link></li>
-                                <li><router-link :to="{ name: 'desas.data' }">Desa</router-link></li>
-                            </ul>
-                        </li>
-                        <li v-if="$can('read products')"><router-link :to="{ name: 'products.data' }">Products</router-link></li>
+                        <li v-if="$can('read kecamatans')"><router-link :to="{ name: 'kecamatans.data' }">Kecamatan</router-link></li>
+                        <li v-if="$can('read desas')"><router-link :to="{ name: 'desas.data' }">Desa</router-link></li>
+                        <li v-if="$can('read tps')"><router-link :to="{ name: 'tps.data' }">Tps</router-link></li>
+                        <li v-if="$can('read konstituens')"><router-link :to="{ name: 'konstituens.data' }">Konstituen</router-link></li>
                         <li class="dropdown" v-if="authenticated.role == 0">
                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Settings <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -145,7 +134,7 @@ export default {
         readNotif(row) {
             this.readNotification({ id: row.id}).then(() => this.$router.push({ name: 'expenses.view', params: {id: row.data.expenses.id} }))
         },
-        logout() {
+        logout(){
             return new Promise((resolve, reject) => {
                 localStorage.removeItem('token')
                 resolve()
@@ -154,6 +143,6 @@ export default {
                 this.$router.push('/login')
             })
         }
-    }
+   }
 }
 </script>

@@ -2,19 +2,19 @@ import $axios from '../api.js'
 
 const state = () => ({
     users: [],
-    rekruters: [],
     roles: [],
     permissions: [],
     role_permission: [],
-    authenticated: []
+    authenticated: [],
+    rekruters: [],
 })
 
 const mutations = {
-    ASSIGN_USER(state, payload) {
-        state.users = payload
-    },
     ASSIGN_REKRUTER(state, payload) {
         state.rekruters = payload
+    },
+    ASSIGN_USER(state, payload) {
+        state.users = payload
     },
     ASSIGN_ROLES(state, payload) {
         state.roles = payload
@@ -26,94 +26,85 @@ const mutations = {
         state.role_permission = payload
     },
     CLEAR_ROLE_PERMISSION(state, payload) {
-        state.role_permission = []
+        state.role_permission = [] 
     },
     ASSIGN_USER_AUTH(state, payload) {
-        state.authenticated = payload
-    }
+        state.authenticated = payload; 
+    },
+
 }
 
 const actions = {
-    getUserLists({ commit }) {
-        return new Promise((resolve, reject) => {
-            $axios.get(`/user-lists`)
-            .then((response) => {
-                commit('ASSIGN_USER', response.data.data)
-                resolve(response.data)
-            })
-        })
-    },
     getRekruters({ commit }){
         return new Promise((resolve, reject) => {
             $axios.get('/rekruter').then((response) => {
-                console.log(response.data.data)
                 commit('ASSIGN_REKRUTER', response.data)
                 resolve(response.data)
             })
         })
     },
-    setRoleUser({commit}, payload) {
+    getUserLists({commit}){
         return new Promise((resolve, reject) => {
-            commit('CLEAR_ERRORS', '', {root: true})
-            $axios.post(`/set-role-user`, payload)
-            .then((response) => {
+            $axios.get('/user-lists').then((response) => {
+                commit('ASSIGN_USER', response.data.data)
                 resolve(response.data)
             })
-            .catch((error) => {
-                if (error.response.status == 422) {
+        })
+    },
+    setRoleUser({commit}, payload){
+        return new Promise((resolve, reject) => {
+            $axios.post('/set-role-user', payload).then((response) => {
+                resolve(response.data)
+            }).catch((error) => {
+                if(error.response.status == 422){
                     commit('SET_ERRORS', error.response.data.errors, { root: true })
                 }
             })
         })
     },
-    getRoles({ commit }) {
+    getRoles({commit}){
         return new Promise((resolve, reject) => {
-            $axios.get(`/roles`)
-            .then((response) => {
+            $axios.get('/roles').then((response) => {
                 commit('ASSIGN_ROLES', response.data.data)
                 resolve(response.data)
             })
         })
     },
-    getAllPermission({ commit }) {
+    getAllPermission({commit}){
         return new Promise((resolve, reject) => {
-            $axios.get(`/permissions`)
-            .then((response) => {
+            $axios.get('/permissions').then((response) => {
                 commit('ASSIGN_PERMISSION', response.data.data)
                 resolve(response.data)
             })
         })
     },
-    getRolePermission({ commit }, payload) {
+    getRolePermission({commit}, payload){
         return new Promise((resolve, reject) => {
             commit('CLEAR_ERRORS', '', {root: true})
-            $axios.post(`/role-permission`, {role_id: payload})
-            .then((response) => {
+            $axios.post('/role-permission', { role_id: payload}).then((response) => {
                 commit('ASSIGN_ROLE_PERMISSION', response.data.data)
                 resolve(response.data)
             })
         })
     },
-    setRolePermission({ commit }, payload) {
+    setRolePermission({commit}, payload){
         return new Promise((resolve, reject) => {
             commit('CLEAR_ERRORS', '', {root: true})
-            $axios.post(`/set-role-permission`, payload)
-            .then((response) => {
+            $axios.post('/set-role-permission', payload).then((response) => {
                 resolve(response.data)
-            })
-            .catch((error) => {
-                if (error.response.status == 422) {
-                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+            }).catch((error) => {
+                if(error.response.status == 422){
+                    commit('SET_ERRORS', error.response.data.errors, {root: true})
                 }
             })
         })
     },
-    getUserLogin({ commit }) {
+    getUserLogin({commit, state}) {
         return new Promise((resolve, reject) => {
-            $axios.get(`user-authenticated`)
-            .then((response) => {
+            $axios.get('/user-authenticated').then((response) => {
                 commit('ASSIGN_USER_AUTH', response.data.data)
                 resolve(response.data)
+                console.log(response.data.data.name)
             })
         })
     }
@@ -121,7 +112,7 @@ const actions = {
 
 export default {
     namespaced: true,
-    state,
-    actions,
-    mutations
+    state, 
+    mutations,
+    actions
 }
