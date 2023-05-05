@@ -1,5 +1,13 @@
 <template>
     <div>
+        <div class="form-group" :class="{ 'has-error': errors.id_dpt}">
+            <label for="">DPT</label>
+            <select v-model="konstituen.id_dpt" class="form-control">
+                <option value="">Pilih</option>
+                <option v-for="(row, index) in allDpt.data" :key="index" :value="row.id">{{ row.nama}}</option>
+            </select>
+            <p class="text-danger" v-if="errors.id_tps">{{ errors.id_tps[0] }}</p>
+        </div>
         <div class="form-group" :class="{ 'has-error': errors.nik}">
             <label for="">NIK</label>
             <input type="text" class="form-control" v-model="konstituen.nik" />
@@ -30,9 +38,17 @@
             <input type="text" class="form-control" v-model="konstituen.rw" />
             <p class="text-danger" v-if="errors.rw">{{ errors.rw[0] }}</p>
         </div>
+        <div class="form-group" :class="{ 'has-error': errors.id_tps}">
+            <label for="">No TPS</label>
+            <select v-model="konstituen.id_tps" class="form-control" :disabled="true">
+                <option value="">Pilih</option>
+                <option v-for="(row, index) in allTps.data" :key="index" :value="row.id">{{ row.no_tps}}</option>
+            </select>
+            <p class="text-danger" v-if="errors.id_tps">{{ errors.id_tps[0] }}</p>
+        </div>
        <div class="form-group" :class="{ 'has-error': errors.id_desa}">
             <label for="">Desa</label>
-            <select v-model="konstituen.id_desa" class="form-control">
+            <select v-model="konstituen.id_desa" class="form-control" :disabled="true">
                 <option value="">Pilih</option>
                 <option v-for="(row, index) in nameDesa.data" :key="index" :value="row.id">{{ row.nama}}</option>
             </select>
@@ -40,19 +56,11 @@
         </div>
        <div class="form-group" :class="{ 'has-error': errors.id_kecamatan}">
             <label for="">Kecamatan</label>
-            <select v-model="konstituen.id_kecamatan" class="form-control">
+            <select v-model="konstituen.id_kecamatan" class="form-control" :disabled="true">
                 <option value="">Pilih</option>
                 <option v-for="(row, index) in kecamatans.data" :key="index" :value="row.id">{{ row.nama}}</option>
             </select>
             <p class="text-danger" v-if="errors.id_kecamatan">{{ errors.id_kecamatan[0] }}</p>
-        </div>
-        <div class="form-group" :class="{ 'has-error': errors.id_tps}">
-            <label for="">No TPS</label>
-            <select v-model="konstituen.id_tps" class="form-control">
-                <option value="">Pilih</option>
-                <option v-for="(row, index) in allTps.data" :key="index" :value="row.id">{{ row.no_tps}}</option>
-            </select>
-            <p class="text-danger" v-if="errors.id_tps">{{ errors.id_tps[0] }}</p>
         </div>
         <div class="form-group" :class="{ 'has-error': errors.agama}">
             <label for="">Agama</label>
@@ -95,14 +103,11 @@
             </select>
             <p class="text-danger" v-if="errors.updated_by">{{ errors.updated_by[0] }}</p>
         </div>
-        <div v-if="this.$route.name == 'konstituens.add'" class="form-group" :class="{ 'has-error': errors.submit_by}">
+        <!-- <div v-if="this.$route.name == 'konstituens.add'" class="form-group" :class="{ 'has-error': errors.submit_by}">
             <label for="">Di submit oleh</label>
-            <select v-model="konstituen.submit_by" class="form-control">
-                <option value="">Pilih</option>
-                <option v-for="(row, index) in rekruters.data" :key="index" :value="row.id">{{ row.name}}</option>
-            </select>
+            <input type="text" class="form-control" v-model="konstituen.submit_by" />
             <p class="text-danger" v-if="errors.submit_by">{{ errors.submit_by[0] }}</p>
-        </div>
+        </div> -->
 
        <!-- <div class="form-group" :class="{ 'has-error': errors.updated_by}">
             <label for="">Di update oleh</label>
@@ -170,13 +175,28 @@ export default {
             },
         }
     },
+    watch: {
+        'konstituen.id_dpt': function(newValue, oldValue){
+            const dpt = this.allDpt.data.find(d => d.id === newValue)
+            const tps = this.allTps.data.find(d => d.id === dpt.id_tps)
+            const desa = this.desas.data.find(d => d.id === tps.desa_id)
+            this.konstituen.nama = dpt.nama
+            this.konstituen.nik = dpt.nik
+            this.konstituen.id_tps = dpt.id_tps
+            this.konstituen.id_desa = desa.id
+            console.log(desa)
+            this.konstituen.id_kecamatan = desa.id_kecamatan 
+        },
+  },
     created() {
         this.getKecamatans();
         this.getdesas();
         this.getNameDesa();
         this.getAllTps();
+        this.getAllDpt();
         this.getKonstituens();
         this.getRekruters();
+        this.konstituen.submit_by = this.authenticated.name
         if (this.$route.name == 'konstituens.edit') {
             this.editKonstituen(this.$route.params.id).then((res1) => {
                 this.konstituen = {
@@ -189,6 +209,7 @@ export default {
                     id_kecamatan: res1.data.id_kecamatan,
                     id_desa: res1.data.id_desa,
                     id_tps: res1.data.id_tps,
+                    id_dpt: res1.data.id_dpt,
                     agama: res1.data.agama,
                     status_pernikahan: res1.data.status_pernikahan,
                     pekerjaan: res1.data.pekerjaan,
@@ -213,20 +234,24 @@ export default {
         ...mapState("tps", {
             allTps: state => state.allTps,
         }),
+        ...mapState("dpt", {
+            allDpt: state => state.allDpt,
+        }),
         ...mapState("user", {
             rekruters: state => state.rekruters,
+            authenticated: state => state.authenticated,
         }),
         ...mapState("desa", {
             nameDesa: state => state.nameDesa,
         }),
     },
     methods: {
-        ...mapActions("konstituen", ["submitKonstituen", "editKonstituen", "updateKonstituen"]),
+        ...mapActions("konstituen", ["submitKonstituen", "editKonstituen", "updateKonstituen", "getKonstituens"]),
         ...mapMutations("konstituen", ['SET_ID_UPDATE']),
-        ...mapActions("kecamatan", ["getKecamatans"]),
-        ...mapActions("konstituen", ["getKonstituens"]),
+        ...mapActions("kecamatan", ["getKecamatans", "editKecamatan"]),
         ...mapActions("desa", ["getdesas"]),
         ...mapActions("tps", ["getAllTps"]),
+        ...mapActions("dpt", ["getAllDpt"]),
         ...mapActions("user", ["getRekruters"]),
         ...mapActions("desa", ["getNameDesa"]),
         onSearch() {
@@ -249,6 +274,7 @@ export default {
             form.append('id_kecamatan', this.konstituen.id_kecamatan)
             form.append('id_desa', this.konstituen.id_desa)
             form.append('id_tps', this.konstituen.id_tps)
+            form.append('id_dpt', this.konstituen.id_dpt)
             form.append('agama', this.konstituen.agama)
             form.append('status_pernikahan', this.konstituen.status_pernikahan)
             form.append('pekerjaan', this.konstituen.pekerjaan)
@@ -256,7 +282,7 @@ export default {
             form.append('foto', this.konstituen.foto)
 
             if (this.$route.name == 'konstituens.add') {
-                form.append('submit_by', this.konstituen.submit_by)
+                form.append('submit_by', this.authenticated.id)
                 this.submitKonstituen(form).then(() => {
                     this.konstituen = {
                         nik: '',
@@ -268,6 +294,7 @@ export default {
                         id_kecamatan: '',
                         id_desa: '',
                         id_tps: '',
+                        id_dpt: '',
                         agama: '',
                         status_pernikahan: '',
                         pekerjaan: '',
@@ -278,7 +305,7 @@ export default {
                     this.$router.push({ name: 'konstituens.data' })
                 })
             } else if (this.$route.name == 'konstituens.edit') {
-                form.append('updated_by', this.konstituen.updated_by)
+                form.append('updated_by', this.authenticated.id)
                 this.SET_ID_UPDATE(this.$route.params.id)
                 console.log(this.errors)
                 this.updateKonstituen(form).then(() => {
@@ -292,6 +319,7 @@ export default {
                         id_kecamatan: '',
                         id_desa: '',
                         id_tps: '',
+                        id_dpt: '',
                         agama: '',
                         status_pernikahan: '',
                         pekerjaan: '',

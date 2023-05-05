@@ -49,6 +49,7 @@ export default {
                 { key: 'no_tps', label: 'No Tps' },
                 { key: 'nik', label: 'NIK' },
                 { key: 'nama', label: 'Nama' },
+                { key: 'jenis_kelamin', label: 'Jenis Kelamin' },
                 { key: 'actions', label: 'Action' },
             ],
             search: ''

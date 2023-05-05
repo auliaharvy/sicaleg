@@ -6,6 +6,7 @@ const state = () => ({
         id_tps: '',
         nik: '',
         nama: '',
+        jenis_kelamin: '',
     },
     page: 1
 })
@@ -21,14 +22,16 @@ const mutations = {
         state.dpt = {
             id_tps: payload.id_tps,
             nik: payload.nik,
-            nama: payload.nama
+            nama: payload.nama,
+            jenis_kelamin: payload.jenis_kelamin
         }
     },
     CLEAR_FORM(state) {
         state.dpt = {
             id_tps: '',
             nik: '',
-            name: '' 
+            name: '',
+            jenis_kelamin: '' 
        }
     }
 }
@@ -71,6 +74,7 @@ const actions = {
     },
     updateDpt({ state, commit }, payload) {
         return new Promise((resolve, reject) => {
+            console.log(payload)
             $axios.put(`/dpt/${payload}`, state.dpt)
             .then((response) => {
                 commit('CLEAR_FORM')

@@ -20,7 +20,7 @@ class MstDptController extends Controller
     {
         $dpt = DB::table('mst_dpts as a')
             ->leftJoin('mst_tps as b', 'a.id_tps', '=', 'b.id')
-            ->select(DB::raw('a.id, b.no_tps, a.nik, a.nama'))
+            ->select(DB::raw('a.id, b.no_tps, a.nik, a.nama, a.jenis_kelamin, b.id as id_tps'))
             ->orderBy('a.created_at', 'ASC');
  
 
@@ -37,6 +37,7 @@ class MstDptController extends Controller
             'id_tps' => 'required',
             'nik' => 'required|string|unique:mst_dpts,nik',
             'nama' => 'required|string|max:100',
+            'jenis_kelamin' => 'required|string|max:100',
         ]);
 
         try {
@@ -45,6 +46,7 @@ class MstDptController extends Controller
                 'id_tps' => $request->id_tps,
                 'nik' => $request->nik,
                 'nama' => $request->nama,
+                'jenis_kelamin' => $request->jenis_kelamin,
             ]);
             return response()->json(['status' => 'success']);
         } catch (\Exception $e) {
@@ -68,6 +70,7 @@ class MstDptController extends Controller
             'id_tps' => 'required',
             'nik' => 'required|string',
             'nama' => 'required|string|max:100',
+            'jenis_kelamin' => 'required|string|max:100',
         ]);
 
         $dpt = MstDpt::find($id);

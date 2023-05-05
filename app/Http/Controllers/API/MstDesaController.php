@@ -16,7 +16,7 @@ class MstDesaController extends Controller
             ->leftJoin('mst_kecamatans as b', 'a.id_kecamatan', '=', 'b.id')
             ->leftJoin('trx_konstituens as c', 'a.id', '=', 'c.id_desa')
             ->select(DB::raw('a.id, a.nama, b.nama as nama_kecamatan,b.dapil, CAST(sum(a.pemilih_pria) AS INTEGER) as pemilih_pria, CAST(sum(a.pemilih_wanita) AS INTEGER) as pemilih_wanita, 
-            count(c.id) as jumlah_konstituens, sum(a.jumlah_tps) as total_tps'))
+            count(c.id) as jumlah_konstituens, sum(a.jumlah_tps) as total_tps, b.id as id_kecamatan'))
             ->orderBy('a.created_at', 'ASC')
             ->groupBy(DB::raw('a.id'));
             // ->select('a.*', 'b.nama as nama_kecamatan')

@@ -59,6 +59,7 @@ class TrxKonstituenController extends Controller
                 $file->storeAs('public/konstituen', $nama_foto);
             }
             TrxKonstituen::create([
+                'id_dpt' => $request->id_dpt,
                 'nik' => $request->nik,
                 'nama' => $request->nama,
                 'no_hp' => $request->no_hp,
@@ -106,6 +107,7 @@ class TrxKonstituenController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'id_dpt' => 'required|string',
             'nik' => 'required|string',
             'nama' => 'required|string|max:100',
             'no_hp' => 'required|string|max:15',
@@ -141,6 +143,7 @@ class TrxKonstituenController extends Controller
         }
 
         $konstituen->update([
+            'id_dpt' => $request->id_dpt,
             'nik' => $request->nik,
             'nama' => $request->nama,
             'no_hp' => $request->no_hp,
