@@ -37,7 +37,7 @@
                     </template>
                     <template slot="c1" slot-scope="row">
                         <router-link v-if="row.item.foto == null" :to="{ name: 'tps.cSatu.add', params: {id: row.item.id}}" class="btn btn-info btn-sm"><i class="fa fa-plus"></i></router-link>
-                        <b-button v-b-tooltip.hover title="Lihat C1" class="btn btn-primary btn-sm" @click="readCSatu(row.item.id_cSatu, row.item.foto)"><i class="fa fa-eye"></i></b-button>
+                        <b-button v-b-tooltip.hover title="Lihat C1" class="btn btn-primary btn-sm" @click="readCSatu(row.item.id_cSatu, row.item.foto, row.item.jml_suara)"><i class="fa fa-eye"></i></b-button>
                         <!-- <b-modal v-model="modal">Hello From Modal!</b-modal> -->
                    </template>
                     <template slot="actions" slot-scope="row">
@@ -185,30 +185,30 @@
                     }
                 })
             },
-           readCSatu(id, foto) {
-                this.showBarChart = true;
-                // this.$swal({
-                //     title: 'Sudah Ada C1',
-                //     imageUrl: `/storage/cSatu/${foto}`,
-                //     imageWidth: 400,
-                //     imageHeight: 200,
-                //     imageAlt: 'Custom image',
-                //     animation: false,
-                //     html: '<bar-c-satu-chart :data="data" :options="chartOptions" :labels="labels"/>',
-                //     showCloseButton: true,
-                //     confirmButtonColor: '#3085d6',
-                //     cancelButtonColor: '#d33',
-                //     confirmButtonText: 'Edit!',
-                //     onOpen: () => {
-                //       // Membuat grafik ketika SweetAlert2 dibuka
-                //       this.$nextTick(() => {
-                //       });
-                //     }
-                // }).then((result) => {
-                //     if(result.value){
-                //         router.push(`/tps/c1/edit/` + id)
-                //     }
-                // });
+           readCSatu(id, foto, jumlah_pemilih) {
+                // this.showBarChart = true;
+                this.$swal({
+                    title: `Jumlah suara pada C1 : ${jumlah_pemilih}`,
+                    imageUrl: `/storage/cSatu/${foto}`,
+                    imageWidth: 400,
+                    imageHeight: 200,
+                    imageAlt: 'Custom image',
+                    animation: false,
+                    html: '<bar-c-satu-chart :data="data" :options="chartOptions" :labels="labels"/>',
+                    showCloseButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Edit!',
+                    onOpen: () => {
+                      // Membuat grafik ketika SweetAlert2 dibuka
+                      this.$nextTick(() => {
+                      });
+                    }
+                }).then((result) => {
+                    if(result.value){
+                        router.push(`/tps/c1/edit/` + id)
+                    }
+                });
             },
         },
         components: {

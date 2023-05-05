@@ -32,7 +32,7 @@ class MstTpsController extends Controller
                 }
             )
             ->leftJoin('mst_c_satus as e', 'a.id', '=', 'e.id_tps')
-          ->select(DB::raw('a.id, b.nama as nama_desa, a.desa_id, a.no_tps, c.jumlah_pemilih, d.jumlah_konstituens, e.foto, e.id as id_cSatu'));
+          ->select(DB::raw('a.id, b.nama as nama_desa, a.desa_id, a.no_tps, c.jumlah_pemilih, e.jml_suara, d.jumlah_konstituens, e.foto, e.id as id_cSatu'));
           // QUERY SQL PHPMYADMIN
 // SELECT mst_tps.id, mst_dpts.jumlah_pemilih, trx_konstituens.jumlah_konstituen
 // FROM mst_tps  
