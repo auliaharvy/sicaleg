@@ -5,6 +5,9 @@ import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueSweetalert2 from 'vue-sweetalert2'
 import Permissions from './mixins/Permission.js'
+// import {Bar} from 'vue-chartjs'
+
+// Vue.component('bar-chart', Bar);
 
 Vue.use(VueSweetalert2)
 Vue.use(BootstrapVue)

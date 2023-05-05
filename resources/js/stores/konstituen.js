@@ -30,6 +30,7 @@ const actions = {
         })
     },
     submitKonstituen({ dispatch, commit }, payload) {
+        console.log(payload)
         return new Promise((resolve, reject) => {
             $axios.post(`/konstituens`, payload, {
                 headers: {
@@ -37,6 +38,7 @@ const actions = {
                 }
             })
             .then((response) => {
+                console.log(response)
                 dispatch('getKonstituens').then(() => {
                     resolve(response.data)
                 })

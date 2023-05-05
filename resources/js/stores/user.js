@@ -104,7 +104,6 @@ const actions = {
             $axios.get('/user-authenticated').then((response) => {
                 commit('ASSIGN_USER_AUTH', response.data.data)
                 resolve(response.data)
-                console.log(response.data.data.name)
             })
         })
     }

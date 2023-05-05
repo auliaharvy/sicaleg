@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './pages/Home.vue'
+import HomeDua from './pages/HomeDua.vue'
 import Login from './pages/Login.vue'
 import store from './store.js'
 
@@ -58,6 +59,15 @@ import DataTps from './pages/tps/Tps.vue'
 import AddTps from './pages/tps/Add.vue'
 import EditTps from './pages/tps/Edit.vue'
 
+import IndexDpt from './pages/dpt/Index.vue'
+import DataDpt from './pages/dpt/Dpt.vue'
+import AddDpt from './pages/dpt/Add.vue'
+import EditDpt from './pages/dpt/Edit.vue'
+
+import AddCSatu from './pages/cSatu/Add.vue'
+import EditCSatu from './pages/cSatu/Edit.vue'
+
+
 Vue.use(Router)
 
 const router = new Router({
@@ -67,6 +77,12 @@ const router = new Router({
             path: '/',
             name: 'home',
             component: Home,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/homeDua',
+            name: 'home_dua',
+            component: HomeDua,
             meta: { requiresAuth: true }
         },
         {
@@ -83,19 +99,19 @@ const router = new Router({
                     path: '',
                     name: 'kecamatans.data',
                     component: DataKecamatan,
-                    meta: { title: 'Manage Kecamatan' }
+                    meta: { requiresAuth: true, title: 'Manage Kecamatan', permissions: 'read kecamatans'}
                 },
                 {
                     path: 'add',
                     name: 'kecamatans.add',
                     component: AddKecamatan,
-                    meta: { title: 'Add New Kecamatan' }
+                    meta: { title: 'Add New Kecamatan', permissions: 'create_kecamatans' }
                 },
                 {
                     path: 'edit/:id',
                     name: 'kecamatans.edit',
                     component: EditKecamatan,
-                    meta: { title: 'Edit Kecamatan' }
+                    meta: { title: 'Edit Kecamatan', permissions: 'edit_kecamatans' }
                 }
             ]
         }, 
@@ -108,19 +124,19 @@ const router = new Router({
                     path: '',
                     name: 'desas.data',
                     component: DataDesa,
-                    meta: { title: 'Manage Desa' }
+                    meta: { title: 'Manage Desa', permissions:'read_desas'}
                 },
                 {
                     path: 'add',
                     name: 'desas.add',
                     component: AddDesa,
-                    meta: { title: 'Add New Desa' }
+                    meta: { title: 'Add New Desa', permissions: 'create_desas'}
                 },
                 {
                     path: 'edit/:id',
                     name: 'desas.edit',
                     component: EditDesa,
-                    meta: { title: 'Edit Desa' }
+                    meta: { title: 'Edit Desa', permissions: 'edit_desas' }
                 }
             ]
         },
@@ -133,19 +149,19 @@ const router = new Router({
                     path: '',
                     name: 'konstituens.data',
                     component: DataKonstituen,
-                    meta: { title: 'Manage Konstituen' }
+                    meta: { title: 'Manage Konstituen', permissions: 'read_konstituens' }
                 },
                 {
                     path: 'add',
                     name: 'konstituens.add',
                     component: AddKonstituen,
-                    meta: { title: 'Add New Konstituen' }
+                    meta: { title: 'Add New Konstituen', permissions: 'create_konstituens' }
                 },
                 {
                     path: 'edit/:id',
                     name: 'konstituens.edit',
                     component: EditKonstituen,
-                    meta: { title: 'Edit Konstituen' }
+                    meta: { title: 'Edit Konstituen', permissions: 'edit_konstituens' }
                 }
             ]
         },
@@ -314,7 +330,7 @@ const router = new Router({
                     path: 'list',
                     name: 'transactions.list',
                     component: ListTransaction,
-                    meta: { title: 'List Transaction' }
+                    meta: { title: 'List Transaction'}
                 },
             ]
         },
@@ -327,22 +343,60 @@ const router = new Router({
                     path: '',
                     name: 'tps.data',
                     component: DataTps,
-                    meta: { title: 'Manage Tps' }
+                    meta: { title: 'Manage Tps', permissions: 'read_tps' }
                 },
                 {
                     path: 'add',
                     name: 'tps.add',
                     component: AddTps,
-                    meta: { title: 'Add New Tps' }
+                    meta: { title: 'Add New Tps', permissions: 'create_tps' }
                 },
                 {
                     path: 'edit/:id',
                     name: 'tps.edit',
                     component: EditTps,
-                    meta: { title: 'Edit Tps' }
+                    meta: { title: 'Edit Tps', permissions: 'edit_tps' }
+                },
+                {
+                    path: 'c1/add/:id',
+                    name: 'tps.cSatu.add',
+                    component: AddCSatu,
+                    meta: { title: 'Add C Satu', permissions: 'create_c_satu_tps' }
+                },
+                {
+                    path: 'c1/edit/:id',
+                    name: 'tps.cSatu.edit',
+                    component: EditCSatu,
+                    meta: { title: 'Edit C Satu', permissions: 'edit_c_satu_tps' }
                 },
             ]
         },
+        {
+            path: '/dpt',
+            component: IndexDpt,
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'dpt.data',
+                    component: DataDpt,
+                    meta: { title: 'Manage Dpt', permissions: 'read dpt' }
+                },
+                {
+                    path: 'add',
+                    name: 'dpt.add',
+                    component: AddDpt,
+                    meta: { title: 'Add New Dpt', permissions: 'create dpt' }
+                },
+                {
+                    path: 'edit/:id',
+                    name: 'dpt.edit',
+                    component: EditDpt,
+                    meta: { title: 'Edit Dpt', permissions: 'edit dpt' }
+                },
+            ]
+        },
+ 
     ]
 });
 
@@ -353,7 +407,20 @@ router.beforeEach((to, from, next) => {
         if (!auth) {
             next({ name: 'login' })
         } else {
-            next()
+            if(to.matched.some(record => record.meta.permissions)){
+                next({name: to.meta})
+
+            //     let Permissions = store.state.user.authenticated.permission;
+            //     let Permission = to.meta.permissions;
+            //     if(Permissions.indexOf(Permission) !== -1){
+            //         next({name: to.name})
+            //     }else{
+            //         next({name: 'home'})
+            //     }
+            // }else{
+            //     next()
+             }
+            next();
         }
     } else {
         next()

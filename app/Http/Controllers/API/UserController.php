@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function userLists()
     {
-        $user = User::where('role', '!=', 3)->get();
+        $user = User::all();
         return new UserCollection($user);
     }
 

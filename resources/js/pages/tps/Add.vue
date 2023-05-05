@@ -27,10 +27,17 @@
         },
         methods: {
             ...mapActions('tps', ['submitTps']),
+            ...mapActions('cSatu', ['submitCSatu']),
             submit() {
-                this.submitTps().then(() => {
-                    this.$router.push({ name: 'tps.data' })
-                })
+                if(this.$route.name == 'tps.add' || this.$route.name == 'tps.edit'){
+                    this.submitTps().then(() => {
+                        this.$router.push({ name: 'tps.data' })
+                    })
+                }else if(this.$route.name == 'tps.cSatu.add' || this.$route.name == 'tps.cSatu.edit'){
+                    this.submitCSatu().then(() => {
+                        this.$router.push({ name: 'tps.data'})
+                    })
+                }
             }
         },
         components: {

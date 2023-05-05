@@ -6,7 +6,6 @@
                 <option value="">Pilih</option>
                 <option v-for="(row, index) in desas.data" :key="index" :value="row.id">{{ row.nama}}</option>
             </select>
- 
             <!-- <v-select 
                 v-model="tps.desa_id" 
                 :options="desas.data" 
@@ -42,14 +41,7 @@
             <input type="text" class="form-control" v-model="tps.no_tps" />
             <p class="text-danger" v-if="errors.no_tps">{{ errors.no_tps[0] }}</p>
         </div>
-        <div class="form-group" :class="{ 'has-error': errors.jml_pemilih}">
-            <label for="">Jumlah pemilih</label>
-            <input type="number" class="form-control" v-model="tps.jml_pemilih" />
-            <p class="text-danger" v-if="errors.jml_pemilih">
-                {{ errors.jml_pemilih[0] }}
-            </p>
-        </div>
-    </div>
+   </div>
 </template>
 <script>
     import { mapActions, mapState, mapMutations}from "vuex"
@@ -75,8 +67,8 @@
             }),
             ...mapState("tps", {
                 tps: state => state.tps
-            })
-        },
+            }),
+       },
         methods: {
             ...mapMutations("tps", ["CLEAR_FORM"]),
             ...mapActions("desa", ["getdesas"]),

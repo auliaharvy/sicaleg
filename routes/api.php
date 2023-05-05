@@ -17,16 +17,21 @@ Route::post('/login', 'Auth\LoginController@login');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('chart', 'API\DashboardController@chart');
+    Route::get('/chart2', 'API\DashboardDuaController@chart');
     Route::get('chart-desa', 'API\DashboardController@chartDesa');
     Route::get('export', 'API\DashboardController@exportData');
     Route::resource('/outlets', 'API\OutletController')->except(['show']);
     Route::resource('/kecamatans', 'API\MstKecamatanController')->except(['show']);
     Route::resource('/desas', 'API\MstDesaController')->except(['show']);
+    Route::resource('/dpt', 'API\MstDptController')->except(['show']);
     Route::get('/name-desa', 'API\MstDesaController@getNameDesa');
     Route::resource('/konstituens', 'API\TrxKonstituenController')->except(['show', 'show', 'update']);
     Route::post('/konstituens/{id}', 'API\TrxKonstituenController@update')->name('konstituen.update');
+    Route::resource('/c1', 'API\MstCSatuController')->except(['show', 'show', 'update']);
+    Route::post('/c1/{id}', 'API\MstCSatuController@update')->name('cSatu.update');
     // Route::resource('/tps', 'API\MstTpsController')->except(['show']);
     Route::resource('tps', 'API\MstTpsController')->except(['create', 'show']);
+    Route::get('/tps/{id}/edit/chart', 'API\MstTpsController@chart');
     
     Route::resource('/couriers', 'API\UserController')->except(['create', 'show', 'update']);
     Route::post('/couriers/{id}', 'API\UserController@update')->name('couriers.update');

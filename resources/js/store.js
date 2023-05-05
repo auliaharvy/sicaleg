@@ -16,6 +16,9 @@ import kecamatan from './stores/kecamatan.js'
 import desa from './stores/desa.js'
 import konstituen from './stores/konstituen.js'
 import tps from './stores/tps.js'
+import dpt from './stores/dpt.js'
+import cSatu from './stores/cSatu.js'
+import dashboard_dua from './stores/dashboard_dua.js'
 
 Vue.use(Vuex)
 
@@ -34,7 +37,10 @@ const store = new Vuex.Store({
         kecamatan,
         desa,
         konstituen,
-        tps
+        tps,
+        dpt,
+        cSatu,
+        dashboard_dua
     },
     state: {
         token: localStorage.getItem('token'),

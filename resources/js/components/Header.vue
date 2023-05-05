@@ -16,6 +16,7 @@
                         <li v-if="$can('read desas')"><router-link :to="{ name: 'desas.data' }">Desa</router-link></li>
                         <li v-if="$can('read tps')"><router-link :to="{ name: 'tps.data' }">Tps</router-link></li>
                         <li v-if="$can('read konstituens')"><router-link :to="{ name: 'konstituens.data' }">Konstituen</router-link></li>
+                        <li v-if="$can('read dpt')"><router-link :to="{ name: 'dpt.data' }">Dpt</router-link></li>
                         <li class="dropdown" v-if="authenticated.role == 0">
                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Settings <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
