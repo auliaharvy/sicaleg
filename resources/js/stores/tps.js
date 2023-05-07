@@ -47,6 +47,7 @@ const actions = {
     submitTps({commit, dispatch, state}){
         return new Promise((resolve, reject) => {
             $axios.post('/tps', state.tps).then((response) => {
+                console.log(state.tps)
                 dispatch('getAllTps').then(() => {
                     resolve(response.data)
                 })

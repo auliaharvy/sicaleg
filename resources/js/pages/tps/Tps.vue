@@ -61,7 +61,6 @@
                         </div>
                     </div>
                 </div>
-                <div>{{ chart }}</div>
                 <bar-c-satu-chart v-show="showBarChart" :dataChart="dataChart" :options="chartOptions" :labels="labels"/>
             </div>
         </div>

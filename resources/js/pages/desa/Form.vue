@@ -7,41 +7,15 @@
         </div>
         <div class="form-group" :class="{ 'has-error': errors.id_kecamatan }">
             <label for="">Kecamatan</label>
-            <v-select
-                :options="kecamatans.data"
-                v-model="desa.id_kecamatan"
-                @search="onSearch"
-                label="nama"
-                placeholder="Masukkan Kata Kunci"
-                :filterable="false"
-            >
-                <template slot="no-options">
-                    Masukkan Kata Kunci
-                </template>
-                <template slot="option" slot-scope="option">
-                    {{ option.nama }}
-                </template>
-            </v-select>
-            <p class="text-danger" v-if="errors.id_kecamatan">
+            <select v-model="desa.id_kecamatan" class="form-control">
+                <option value="">Pilih</option>
+                <option v-for="(row, index) in kecamatans.data" :key="index" :value="row.id">{{ row.nama}}</option>
+            </select>
+           <p class="text-danger" v-if="errors.id_kecamatan">
                 {{ errors.id_kecamatan[0] }}
             </p>
         </div>
-        <div class="form-group" :class="{ 'has-error': errors.pemilih_pria }">
-            <label for="">Pemilih Pria</label>
-            <input type="number" class="form-control" v-model="desa.pemilih_pria" />
-            <p class="text-danger" v-if="errors.pemilih_pria">{{ errors.pemilih_pria[0] }}</p>
-        </div>
-        <div class="form-group" :class="{ 'has-error': errors.pemilih_wanita }">
-            <label for="">Pemilih Wanita</label>
-            <input type="number" class="form-control" v-model="desa.pemilih_wanita" />
-            <p class="text-danger" v-if="errors.pemilih_wanita">{{ errors.pemilih_wanita[0] }}</p>
-        </div>
-        <div class="form-group" :class="{ 'has-error': errors.jumlah_tps }">
-            <label for="">Jumlah TPS</label>
-            <input type="number" class="form-control" v-model="desa.jumlah_tps" />
-            <p class="text-danger" v-if="errors.jumlah_tps">{{ errors.jumlah_tps[0] }}</p>
-        </div>
-    </div>
+   </div>
 </template>
 
 <script>

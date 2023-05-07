@@ -59,6 +59,7 @@
                 </div>
             </div>
         </div>
+    <div>{{ desas.data }}</div>
     </div>
 </template>
 
@@ -69,7 +70,7 @@ export default {
     name: 'Datadesa',
     created() {
         this.getdesas()
-    },
+   },
     data() {
         return {
             fields: [
@@ -80,7 +81,7 @@ export default {
                 { key: 'total', label: 'Total Pemilih' },
                 { key: 'jumlah_konstituen', label: 'Konstituen' },
                 { key: 'pencapaian', label: 'Pencapaian' },
-                { key: 'total_tps', label: 'Jumlah TPS' },
+                { key: 'jumlah_tps', label: 'Jumlah TPS' },
             ],
             search: ''
         }

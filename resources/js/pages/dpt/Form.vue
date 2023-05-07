@@ -4,7 +4,7 @@
             <label for="">Tps</label>
             <select v-model="dpt.id_tps" class="form-control">
                 <option value="">Pilih</option>
-                <option v-for="(row, index) in allTps.data" :key="index" :value="row.id">{{ row.no_tps}}</option>
+                <option v-for="(row, index) in allTps.data" :key="index" :value="row.id">TPS {{ row.no_tps}} DESA {{ row.nama_desa }}</option>
             </select>
         </div>
         <div class="form-group" :class="{ 'has-error': errors.nik}">
@@ -36,8 +36,8 @@ export default {
         return {
             allKelamin:{
                 data: [ 
-                   {jenis_kelamin: 'Laki - Laki'}, 
-                   {jenis_kelamin: 'Perempuan'}, 
+                   {jenis_kelamin: 'Pria'}, 
+                   {jenis_kelamin: 'Wanita'}, 
                 ] 
             },
         }
