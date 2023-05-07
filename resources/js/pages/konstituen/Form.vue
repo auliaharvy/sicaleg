@@ -215,7 +215,7 @@ export default {
                     pekerjaan: res1.data.pekerjaan,
                     kewarganegaraan: res1.data.kewarganegaraan,
                     foto: '',
-                    updated_by: res1.data.updated_by,
+                    updated_by: this.authenticated.id
                 }
            })
         }

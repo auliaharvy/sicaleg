@@ -80,8 +80,13 @@ const actions = {
                 commit('CLEAR_FORM')
                 resolve(response.data)
             })
+            .catch((error) => {
+                if (error.response.status == 422) {
+                    commit('SET_ERRORS', error.response.data.errors, { root: true })
+                }
+            })
         })
-    } ,
+    }, 
     removeDpt({ dispatch }, payload) {
         return new Promise((resolve, reject) => {
             $axios.delete(`/dpt/${payload}`)
