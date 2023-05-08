@@ -140,6 +140,6 @@ class UserController extends Controller
 
         // MEMASUKAN DATA PERMISSIONS KE DALAM DATA USER
         $user['permission'] = $permissions;
-        return response()->json(['status' => 'success', 'data' => $user]);
+        return response()->json(['status' => 'success', 'data' => $user, 'permission' => true]);
     }
 }

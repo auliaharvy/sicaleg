@@ -57,6 +57,7 @@
                     </div>
                 </div>
             </div>
+            <div>{{ authenticated.permission }}</div>
         </section>
     </div>
 </template>
@@ -73,6 +74,7 @@
                 year: this.year
             }),
             this.getChartDataDesa()
+            this.getUserLogin()
         },
         data() {
             return {
@@ -102,6 +104,9 @@
             ...mapState('dashboard', {
                 transactions: state => state.transactions,
                 desas: state => state.desas,
+            }),
+            ...mapState('user', {
+                authenticated: state => state.authenticated,
             }),
             ...mapState(['token']),
             years() {
@@ -135,6 +140,7 @@
         },
         methods: {
             ...mapActions('dashboard', ['getChartData', 'getChartDataDesa']),
+            ...mapActions('user', ['getUserLogin']),
             exportData() {
                 window.open(`/api/export?api_token=${this.token}&month=${this.month}&year=${this.year}`)
             }

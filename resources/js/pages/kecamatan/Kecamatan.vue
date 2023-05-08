@@ -109,6 +109,7 @@ export default {
     },
     methods: {
         ...mapActions('kecamatan', ['getKecamatans', 'removeKecamatan']),
+        ...mapActions('user', ['ensurePermissionIsMatch']),
         deleteData(id) {
             this.$swal({
                 title: 'Kamu Yakin?',

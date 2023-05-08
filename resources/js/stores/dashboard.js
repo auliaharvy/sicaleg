@@ -29,7 +29,6 @@ const actions = {
             $axios.get(`/chart-desa`)
             .then((response) => {
                 commit('ASSIGN_DATA_DESA', response.data.data)
-                console.log(response.data.data)
                 resolve(response.data)
             })
         })

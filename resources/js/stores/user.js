@@ -4,6 +4,7 @@ const state = () => ({
     users: [],
     roles: [],
     permissions: [],
+    matchPermission: false, 
     role_permission: [],
     authenticated: [],
     rekruters: [],
@@ -21,6 +22,9 @@ const mutations = {
     },
     ASSIGN_PERMISSION(state, payload) {
         state.permissions = payload
+    },
+    ASSIGN_MATCH_PERMISSION(state, payload) {
+        state.matchPermission = payload
     },
     ASSIGN_ROLE_PERMISSION(state, payload) {
         state.role_permission = payload
@@ -103,10 +107,20 @@ const actions = {
         return new Promise((resolve, reject) => {
             $axios.get('/user-authenticated').then((response) => {
                 commit('ASSIGN_USER_AUTH', response.data.data)
+                localStorage.setItem('permission', response.data.data.permission)
                 resolve(response.data)
             })
         })
-    }
+    },
+    ensurePermissionIsMatch({commit, dispatch, state}, payload){
+        dispatch('getUserLogin').then(() => {
+            let permissionAuth = state.authenticated.permission
+            if(permissionAuth.indexOf(payload.permission) !== -1){
+                commit('ASSIGN_MATCH_PERMISSION', true)
+            }
+            console.log(state.matchPermission)
+        })
+   }
 }
 
 export default {

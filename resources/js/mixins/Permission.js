@@ -7,5 +7,5 @@ export default {
             // JIKA USER MEMPUNYAI PERMISSION YANG TERKAIT MAKA AKAN ME RETURN KAN TRUE
             if(typeof Permission != 'undefined') return Permission.indexOf(permissionName) !== -1;
         }
-    }
+   }
 }

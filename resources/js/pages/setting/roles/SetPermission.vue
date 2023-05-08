@@ -109,7 +109,6 @@ import { mapActions, mapMutations, mapState } from 'vuex';
             this.getRoles()
             this.getAllPermission()
             this.getUserLists()
-            console.log(this.new_permission)
         },
         computed: {
             // KETIKA DI LOAD, AKAN MEMANGGIL SEMUA DATA STATE USERS, ROLES, PERMISSIONS DAN ROLE_PERMISSION

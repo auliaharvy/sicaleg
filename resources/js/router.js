@@ -77,7 +77,7 @@ const router = new Router({
             path: '/',
             name: 'home',
             component: Home,
-            meta: { requiresAuth: true }
+            meta: { requiresAuth: true, permissions: ['home'] }
         },
         {
             path: '/homeDua',
@@ -99,19 +99,19 @@ const router = new Router({
                     path: '',
                     name: 'kecamatans.data',
                     component: DataKecamatan,
-                    meta: { requiresAuth: true, title: 'Manage Kecamatan', permissions: 'read kecamatans'}
+                    meta: { requiresAuth: true, title: 'Manage Kecamatan', permissions: ['read kecamatans']},
                 },
                 {
                     path: 'add',
                     name: 'kecamatans.add',
                     component: AddKecamatan,
-                    meta: { title: 'Add New Kecamatan', permissions: 'create_kecamatans' }
+                    meta: { title: 'Add New Kecamatan', permissions: ['create kecamatans'] }
                 },
                 {
                     path: 'edit/:id',
                     name: 'kecamatans.edit',
                     component: EditKecamatan,
-                    meta: { title: 'Edit Kecamatan', permissions: 'edit_kecamatans' }
+                    meta: { title: 'Edit Kecamatan', permissions: ['edit kecamatans'] }
                 }
             ]
         }, 
@@ -124,19 +124,19 @@ const router = new Router({
                     path: '',
                     name: 'desas.data',
                     component: DataDesa,
-                    meta: { title: 'Manage Desa', permissions:'read_desas'}
+                    meta: { title: 'Manage Desa', permissions: ['read desas']}
                 },
                 {
                     path: 'add',
                     name: 'desas.add',
                     component: AddDesa,
-                    meta: { title: 'Add New Desa', permissions: 'create_desas'}
+                    meta: { title: 'Add New Desa', permissions: ['create desas']}
                 },
                 {
                     path: 'edit/:id',
                     name: 'desas.edit',
                     component: EditDesa,
-                    meta: { title: 'Edit Desa', permissions: 'edit_desas' }
+                    meta: { title: 'Edit Desa', permissions: ['edit desas'] }
                 }
             ]
         },
@@ -149,19 +149,19 @@ const router = new Router({
                     path: '',
                     name: 'konstituens.data',
                     component: DataKonstituen,
-                    meta: { title: 'Manage Konstituen', permissions: 'read_konstituens' }
+                    meta: { title: 'Manage Konstituen', permissions: ['read konstituens'] }
                 },
                 {
                     path: 'add',
                     name: 'konstituens.add',
                     component: AddKonstituen,
-                    meta: { title: 'Add New Konstituen', permissions: 'create_konstituens' }
+                    meta: { title: 'Add New Konstituen', permissions: ['create konstituens'] }
                 },
                 {
                     path: 'edit/:id',
                     name: 'konstituens.edit',
                     component: EditKonstituen,
-                    meta: { title: 'Edit Konstituen', permissions: 'edit_konstituens' }
+                    meta: { title: 'Edit Konstituen', permissions: ['edit konstituens'] }
                 }
             ]
         },
@@ -174,19 +174,19 @@ const router = new Router({
                     path: '',
                     name: 'outlets.data',
                     component: DataOutlet,
-                    meta: { title: 'Manage Outlets' }
+                    meta: { title: 'Manage Outlets', permissions: ['read outlets'] }
                 },
                 {
                     path: 'add',
                     name: 'outlets.add',
                     component: AddOutlet,
-                    meta: { title: 'Add New Outlet' }
+                    meta: { title: 'Add New Outlet', permissions: ['create outlets'] }
                 },
                 {
                     path: 'edit/:id',
                     name: 'outlets.edit',
                     component: EditOutlet,
-                    meta: { title: 'Edit Outlet' }
+                    meta: { title: 'Edit Outlet', permissions: ['edit outlets'] }
                 }
             ]
         }, 
@@ -199,19 +199,19 @@ const router = new Router({
                     path: '',
                     name: 'couriers.data',
                     component: DataCouriers,
-                    meta: { title: 'Manage Couriers' }
+                    meta: { title: 'Manage Couriers', permissions: ['read couriers'] }
                 },
                 {
                     path: 'add',
                     name: 'couriers.add',
                     component: AddCouriers,
-                    meta: { title: 'Add New Couriers' }
+                    meta: { title: 'Add New Couriers', permissions: ['create couriers'] }
                 },
                 {
                     path: 'edit/:id',
                     name: 'couriers.edit',
                     component: EditCouriers,
-                    meta: { title: 'Edit Courier' }
+                    meta: { title: 'Edit Courier', permissions: ['edit couriers'] }
                 },
             ]
         },
@@ -224,19 +224,19 @@ const router = new Router({
                     path: '',
                     name: 'products.data',
                     component: DataProduct,
-                    meta: { title: 'Manage Products' }
+                    meta: { title: 'Manage Products', permissions: ['read products'] }
                 },
                 {
                     path: 'add',
                     name: 'products.add',
                     component: AddProduct,
-                    meta: { title: 'Add New Product' }
+                    meta: { title: 'Add New Product', permissions: ['create products'] }
                 },
                 {
                     path: 'edit/:id',
                     name: 'products.edit',
                     component: EditProduct,
-                    meta: { title: 'Edit Product' }
+                    meta: { title: 'Edit Product', permissions: ['edit products'] }
                 },
             ]
         },
@@ -249,7 +249,7 @@ const router = new Router({
                     path: 'role-permission',
                     name: 'role.permissions',
                     component: SetPermission,
-                    meta: {title: 'Set Permissions'}
+                    meta: {title: 'Set Permissions', permissions: ['read seting role permission']}
                 }
             ]
         },
@@ -262,25 +262,25 @@ const router = new Router({
                     path: '',
                     name: 'expenses.data',
                     component: DataExpenses,
-                    meta: { title: 'Manage Expenses' }
+                    meta: { title: 'Manage Expenses', permissions: ['read expenses'] }
                 },
                 {
                     path: 'add',
                     name: 'expenses.create',
                     component: CreateExpenses,
-                    meta: { title: 'Add New Expenses' }
+                    meta: { title: 'Add New Expenses', permissions: ['create expenses'] }
                 },
                 {
                     path: 'edit/:id',
                     name: 'expenses.edit',
                     component: EditExpenses,
-                    meta: { title: 'Edit Expenses' }
+                    meta: { title: 'Edit Expenses', permissions: ['edit expenses'] }
                 },
                 {
                     path: 'view/:id',
                     name: 'expenses.view',
                     component: ViewExpenses,
-                    meta: { title: 'View Expenses' }
+                    meta: { title: 'View Expenses', permissions: ['view expenses'] }
                 },
             ]
         },
@@ -293,19 +293,19 @@ const router = new Router({
                     path: '',
                     name: 'customers.data',
                     component: DataCustomer,
-                    meta: { title: 'Manage Customers' }
+                    meta: { title: 'Manage Customers', permissions: ['read customers'] }
                 },
                 {
                     path: 'add',
                     name: 'customers.add',
                     component: AddCustomer,
-                    meta: { title: 'Add New Customers' }
+                    meta: { title: 'Add New Customers', permissions: ['create customers'] }
                 },
                 {
                     path: 'edit/:id',
                     name: 'customers.edit',
                     component: EditCustomer,
-                    meta: { title: 'Edit Customer' }
+                    meta: { title: 'Edit Customer', permissions: ['edit customers'] }
                 },
             ]
         },
@@ -318,19 +318,19 @@ const router = new Router({
                     path: 'create',
                     name: 'transactions.add',
                     component: AddTransaction,
-                    meta: { title: 'Create New Transaction' }
+                    meta: { title: 'Create New Transaction', permissions: ['read transactions'] }
                 },
                 {
                     path: 'view/:id',
                     name: 'transactions.view',
                     component: ViewTransaction,
-                    meta: { title: 'View Transaction' }
+                    meta: { title: 'View Transaction', permissions: ['edit transactions'] }
                 },
                 {
                     path: 'list',
                     name: 'transactions.list',
                     component: ListTransaction,
-                    meta: { title: 'List Transaction'}
+                    meta: { title: 'List Transaction', permissions: ['list transactions']}
                 },
             ]
         },
@@ -343,31 +343,31 @@ const router = new Router({
                     path: '',
                     name: 'tps.data',
                     component: DataTps,
-                    meta: { title: 'Manage Tps', permissions: 'read_tps' }
+                    meta: { title: 'Manage Tps', permissions: ['read tps'] }
                 },
                 {
                     path: 'add',
                     name: 'tps.add',
                     component: AddTps,
-                    meta: { title: 'Add New Tps', permissions: 'create_tps' }
+                    meta: { title: 'Add New Tps', permissions: ['create tps'] }
                 },
                 {
                     path: 'edit/:id',
                     name: 'tps.edit',
                     component: EditTps,
-                    meta: { title: 'Edit Tps', permissions: 'edit_tps' }
+                    meta: { title: 'Edit Tps', permissions: ['edit tps'] }
                 },
                 {
                     path: 'c1/add/:id',
                     name: 'tps.cSatu.add',
                     component: AddCSatu,
-                    meta: { title: 'Add C Satu', permissions: 'create_c_satu_tps' }
+                    meta: { title: 'Add C Satu', permissions: ['create c satu tps'] }
                 },
                 {
                     path: 'c1/edit/:id',
                     name: 'tps.cSatu.edit',
                     component: EditCSatu,
-                    meta: { title: 'Edit C Satu', permissions: 'edit_c_satu_tps' }
+                    meta: { title: 'Edit C Satu', permissions: ['edit c satu tps'] }
                 },
             ]
         },
@@ -380,19 +380,19 @@ const router = new Router({
                     path: '',
                     name: 'dpt.data',
                     component: DataDpt,
-                    meta: { title: 'Manage Dpt', permissions: 'read dpt' }
+                    meta: { title: 'Manage Dpt', permissions: ['read dpt'] }
                 },
                 {
                     path: 'add',
                     name: 'dpt.add',
                     component: AddDpt,
-                    meta: { title: 'Add New Dpt', permissions: 'create dpt' }
+                    meta: { title: 'Add New Dpt', permissions: ['create dpt'] }
                 },
                 {
                     path: 'edit/:id',
                     name: 'dpt.edit',
                     component: EditDpt,
-                    meta: { title: 'Edit Dpt', permissions: 'edit dpt' }
+                    meta: { title: 'Edit Dpt', permissions: ['edit dpt'] }
                 },
             ]
         },
@@ -400,29 +400,20 @@ const router = new Router({
     ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
     store.commit('CLEAR_ERRORS')
     if (to.matched.some(record => record.meta.requiresAuth)) {
         let auth = store.getters.isAuth
         if (!auth) {
             next({ name: 'login' })
         } else {
-            if(to.matched.some(record => record.meta.permissions)){
-                next({name: to.meta})
-
-            //     let Permissions = store.state.user.authenticated.permission;
-            //     let Permission = to.meta.permissions;
-            //     if(Permissions.indexOf(Permission) !== -1){
-            //         next({name: to.name})
-            //     }else{
-            //         next({name: 'home'})
-            //     }
-            // }else{
-            //     next()
-             }
-            next();
+            if(localStorage.getItem('permission').includes(to.meta.permissions) || to.meta.permissions[0] == 'home'){
+                next()
+            }else{
+                router.push({name: 'home'})
+            }
         }
-    } else {
+    }else {
         next()
     }
 })
